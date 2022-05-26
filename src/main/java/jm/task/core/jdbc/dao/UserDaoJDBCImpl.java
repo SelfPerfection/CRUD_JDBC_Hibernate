@@ -16,7 +16,7 @@ public class UserDaoJDBCImpl implements UserDao {
     public void createUsersTable() {
         String sql = """
                     CREATE TABLE IF NOT EXISTS User (
-                        id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+                        id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
                         name varchar(255) NOT NULL,
                         lastName varchar(255),
                         age TINYINT
@@ -34,7 +34,7 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void dropUsersTable() {
-        String sql = "DROP TABLE IF EXISTS user";
+        String sql = "DROP TABLE IF EXISTS User";
 
         try (Util instance = Util.getInstance();
             Connection connection = instance.getConnection();
@@ -47,7 +47,7 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void saveUser(String name, String lastName, byte age) {
-        String sql = "INSERT INTO `user` (`name`, `lastName`, `age`) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO `User` (`name`, `lastName`, `age`) VALUES (?, ?, ?)";
 
         try (Util instance = Util.getInstance();
             Connection connection = instance.getConnection();
@@ -83,7 +83,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
-        String sql = "SELECT * FROM user";
+        String sql = "SELECT * FROM User";
 
         try (Util instance = Util.getInstance();
             Connection connection = instance.getConnection();
@@ -106,7 +106,7 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void cleanUsersTable() {
-        String sql = "DELETE FROM user";
+        String sql = "DELETE FROM User";
 
         try (Util instance = Util.getInstance();
             Connection connection = instance.getConnection();
